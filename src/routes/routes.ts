@@ -1,6 +1,4 @@
 import { Express, NextFunction, Request, Response } from "express";
-import userController from '../controller/user/user.controller';
-import bookController from '../controller/books/book.controller';
 
 // routes handle the incoming HTTP requests
 const routes = (app: Express) => {
@@ -28,14 +26,6 @@ const routes = (app: Express) => {
   app.get('/healthcheck', (req: Request, res: Response) => {
     res.sendStatus(200);
   })
-
-  app.get('/api/users', userController.getUsers);
-
-  //book routes
-  app.get('/api/books', bookController.getAllBooks);
-  app.post('/api/create/book', bookController.createBook);
-  app.delete('/api/delete/book/:id', bookController.deleteBook);
-  app.put('/api/update/book/:id', bookController.updateBook);
 
   //error handler
   app.use((req: Request, res: Response, next: NextFunction) => {

@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';  
 import config from 'config';
+import dotenv from 'dotenv';
+
 import log from '../logger';
 
+dotenv.config();
+
  const connectToMongo = async () => {
-  const dbUri = config.get<string>('dbUri');
+  const dbUri = process.env.DB_URI as string;
 
   try {
     let isConnected = await mongoose.connect(dbUri);

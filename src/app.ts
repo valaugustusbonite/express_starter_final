@@ -2,13 +2,20 @@
 import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 import config from 'config';
+import dotenv from 'dotenv';
+
 import log from './logger/index';
 import connectToMongo from './db/connect';
 import routes from './routes/routes';
 
+
+dotenv.config();
+
 //gets the config files of the app like the port and host
-const port = config.get<number>('port');
-const host = config.get<string>('host');
+const port = process.env.PORT || 1337;
+const host = process.env.HOST as string;
+
+
 
 //import express method 
 const app = express();
@@ -21,10 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(express.urlencoded({extended: true}));
 
 //server
-app.listen(port, host, async () => {
+app.listen(port as number, host, async () => {
   log.info(`Server listening at http://${host}:${port}`);
 
-  await connectToMongo();
+  //await connectToMongo();
 
   routes(app);
 })
