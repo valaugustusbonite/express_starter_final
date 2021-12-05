@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --config nodemon.json src/app.ts",
-    "build": "del -rf build/ && prettier --write src/ && tsc"
+    "build": "tsc --build"
   },
   "dependencies": {
     "@types/dotenv": "^8.2.0",

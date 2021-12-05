@@ -1,22 +1,21 @@
 import mongoose from 'mongoose';  
-import config from 'config';
-import dotenv from 'dotenv';
 
-import log from '../logger';
+import log from '../config/logger';
+import config from '../config/config';
 
-dotenv.config();
+const NAMESPACE = 'DB CONNECT';
 
- const connectToMongo = async () => {
-  const dbUri = process.env.DB_URI as string;
+const connectToMongo = async () => {
+  const dbUri = config.server.db_uri as string;
 
   try {
     let isConnected = await mongoose.connect(dbUri);
     
     if (isConnected) {
-      log.info('Connected to Mongo');
+      log.info(NAMESPACE, 'Connected to Mongo');
     }
-  } catch (error) {
-    log.error('db error', error);
+  } catch (error: any) {
+    log.error(NAMESPACE, error.message, error);
     process.exit(1);
   }
 }
